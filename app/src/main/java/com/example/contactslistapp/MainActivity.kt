@@ -1,11 +1,20 @@
 package com.example.contactslistapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils.replace
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactslistapp.data.Contact
+import com.example.contactslistapp.database.ContactsListDao
 import com.example.contactslistapp.databinding.ActivityMainBinding
 import com.example.contactslistapp.databinding.ItemContactBinding
+import com.example.contactslistapp.model.ContactsListViewModel
+import com.example.contactslistapp.model.ContactsListViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -15,24 +24,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val contacts = mutableListOf(
-            Contact("Bilal", "123456789"),
-            Contact("Zubair", "6489749876"),
-            Contact("Hakim", "8376249856"),
-            Contact("Ajuma", "456789"),
-            Contact("Farook", "345678987654"),
-            Contact("Alima", "98734567")
-        )
-
-        val adapter = ContactsListAdapter(contacts)
-        binding.rvContactsList.adapter = adapter
-        binding.rvContactsList.layoutManager = LinearLayoutManager(this)
-        binding.addButton.setOnClickListener {
-            val name = binding.addName.text.toString()
-            val phNo = binding.addPhNo.text.toString()
-            val contact = Contact(name, phNo)
-            contacts.add(contact)
-            adapter.notifyItemInserted(contacts.size - 1)
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, ContactsListFragment())
+            commit()
         }
     }
 }
