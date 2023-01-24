@@ -15,7 +15,7 @@ import com.example.contactslistapp.databinding.FragmentContactsListBinding
 import com.example.contactslistapp.model.ContactsListViewModel
 import com.example.contactslistapp.model.ContactsListViewModelFactory
 import kotlinx.coroutines.launch
-// R.layout.fragment_contacts_list
+
 class ContactsListFragment : Fragment() {
 
     private var _binding: FragmentContactsListBinding? = null
@@ -39,17 +39,6 @@ class ContactsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val contacts = mutableListOf(
-//            Contact(0,"Alima", "98734567"),
-//            Contact(1, "Bilal", "123456789"),
-//            Contact(2, "Zubair", "6489749876"),
-//            Contact(3, "Hakim", "8376249856"),
-//            Contact(4, "Ajuma", "456789"),
-//            Contact(5, "Farook", "345678987654")
-//        )
-
-//        val contacts = viewModel.allContacts()
-
         val adapter = ContactsListAdapter {}
 
         lifecycle.coroutineScope.launch {
@@ -64,7 +53,6 @@ class ContactsListFragment : Fragment() {
             val name = binding.addName.text.toString()
             val phNo = binding.addPhNo.text.toString()
             val contact = Contact( 0, name, phNo)
-//            contacts.add(contact)
             viewModel.insertContact(contact)
         }
     }
